@@ -3,12 +3,15 @@ import streamlit as st
 from openai import OpenAI
 
 from utils import get_function_body
+
 # Load environment variables
 load_dotenv()
+
 
 @st.cache_resource
 def get_client():
     return OpenAI()
+
 
 # Streamlit can output HTML
 st.title("👨‍🏫 Introduction to OpenAI (Part 1)")
@@ -68,43 +71,45 @@ Explore it a bit by filling out this form 👇
 """
 client = get_client()
 
+
 def simple_user_input(client, user_input):
     response = client.chat.completions.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {
-                    "role": "user", 
-                    "content": user_input
-                },
-            ]
-        )
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "user", "content": user_input},
+        ],
+    )
     return response
+
 
 def get_response_content(response):
     content = response.choices[0].message.content
     print(content)
     return content
 
+
 with st.form("simple"):
     input = st.text_input("Prompt")
     submitted = st.form_submit_button("Send to OpenAI Chat Completion API")
     if submitted:
-        st.code(get_function_body(simple_user_input, {
-            "user_input": input
-        }))
+        st.code(get_function_body(simple_user_input, {"user_input": input}))
         with st.spinner("Sending completion request..."):
             response = simple_user_input(client, input)
-            st.markdown("""
+            st.markdown(
+                """
                 #### The Response Object
                 
                 The raw API response looks lke this:
-            """)
+            """
+            )
             st.json(response.model_dump_json())
-            st.markdown(f"""
+            st.markdown(
+                f"""
                 👀 The `model` will always show the actual version: `"{response.model}"`
                 
                 The `response` object that is returned is the inflated response
-                """)
+                """
+            )
             st.code(get_function_body(get_response_content))
             with st.expander("Output"):
                 st.markdown(get_response_content(response))
@@ -129,18 +134,13 @@ You can not only control the personality, but you can also control what it shoul
 Let's show and not just tell 🪄
 """
 
+
 def systemized_user_input(client, system_message, user_input):
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
-            {
-                "role": "system",
-                "content": system_message
-            },
-            {
-                "role": "user", 
-                "content": user_input
-            },
+            {"role": "system", "content": system_message},
+            {"role": "user", "content": user_input},
         ],
     )
     return response
@@ -151,14 +151,23 @@ You are patient and take your time to make sure important lessons are honed in.
 A user will give you a regex and you will explain what it is doing, and how it might be used."""
 
 with st.form("systemized"):
-    system_message = st.text_area(label="System Message (would normally be hidden)", value=REGEX_SYSTEM_MESSAGE, height=7)
+    system_message = st.text_area(
+        label="System Message (would normally be hidden)",
+        value=REGEX_SYSTEM_MESSAGE,
+        height=7,
+    )
     input = st.text_input("Regular Expression")
     submitted = st.form_submit_button("Send to OpenAI Chat Completion API")
     if submitted:
-        st.code(get_function_body(systemized_user_input, {
-            "user_input": input,
-            "system_message": system_message,
-        }))
+        st.code(
+            get_function_body(
+                systemized_user_input,
+                {
+                    "user_input": input,
+                    "system_message": system_message,
+                },
+            )
+        )
         with st.spinner("Sending completion request..."):
             st.balloons()
             response = systemized_user_input(client, system_message, input)
@@ -171,10 +180,7 @@ with st.form("systemized"):
 Remember that the [messages parameter is a list](https://platform.openai.com/docs/guides/text-generation/chat-completions-api). If you keep track of what is returned you can add it as a `role` of `assistant`, you can have it refine.
 
 You don't need to use this in a Chat interface, [be creative](https://platform.openai.com/examples)!
-"""
 
-
-"""
 ## But wait there's more!
 
 Check out the [Official OpenAI Cookbook](https://cookbook.openai.com/)
