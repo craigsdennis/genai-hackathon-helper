@@ -29,13 +29,13 @@ st.title("🧑‍🏫 Introduction to OpenAI (Part 2 - Artificial Boogaloo)")
 
 ### 📞 Add Function Calling Tools
 
-You can actually add tools that give additional abilities to your LLM applications.
+You can actually add tools that give additional powers to your LLM applications.
 
 Think of this like adding new abilities.
 
-It can literally do anything you can write code for. Think APIs. 
+It can literally do anything you can write code to do. Think APIs. 
 
-💡 I'm going to try and cause a lightbulb moment
+💡 I'm going to try and cause a lightbulb moment.
 """
 
 st.info("If you own [LIFX lights](https://www.lifx.com/) you can register your `LIFX_TOKEN` in your `.env` file.")
