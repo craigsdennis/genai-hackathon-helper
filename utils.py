@@ -12,4 +12,5 @@ def get_function_body(fn, replacements=None):
             body = body.replace(key, json.dumps(value))
     return body
 
+
 email_re = r"[^\.\s@:](?:[^\s@:]*[^\s@:\.])?@[^\.\s@]+(?:\.[^\.\s@]+)*"
