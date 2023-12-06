@@ -1,5 +1,6 @@
 openai
 streamlit
+streamlit-audiorec
 watchdog
 python-dotenv
 requests
