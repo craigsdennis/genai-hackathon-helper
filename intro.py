@@ -1,6 +1,6 @@
 from dotenv import load_dotenv
-import streamlit as st
 from openai import OpenAI
+import streamlit as st
 
 from utils import get_function_body
 
