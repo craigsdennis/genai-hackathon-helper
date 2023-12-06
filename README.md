@@ -21,6 +21,13 @@ python -m pip install -r requirements.txt
 python -m streamlit run intro.py
 ```
 
+### Introduction to OpenAI API (Part 2)
+
+```bash
+python -m streamlit run moar.py
+```
+
+
 ### HackGPT
 
 ```bash
